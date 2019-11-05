@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #reset_button {
+                position: absolute;
+                bottom: 0px;
+                left: 50%;
+                font-size: xx-large;
+            }
+            #zombie {
+                position:absolute;
+                top: 50%;
+                left: 50%;
+                margin: auto;
+            }
+            #zombie2 {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin: auto;
+            }
+            p.score {
+                color: red;
+                font-family: fantasy;
+                font-size: x-large;
+            }
+        </style>
+
+    </head>
+    <body>
+        <button id = 'reset_button' onclick = 'reset()'>End</button>
+        <img id = 'zombie' src = 'zombie.png' width = '100px' height = '100px'>
+        <img id = 'zombie2' src = 'zombie.png' width = '100px' height = '100px'>
+        <p class = 'score'>Score:<span id = 'score'>0</span></p>
+        <script>
+            let counter = 0;
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            function score() {
+                counter += 1;
+                document.getElementById('score').innerHTML = counter;
+            }
+            function zombiespawn() {
+                document.getElementById('zombie').style.left = (Math.floor(Math.random()*(width-100))) + 'px';
+                document.getElementById('zombie').style.top = (Math.floor(Math.random()*(height-100))) + 'px';
+                document.getElementById('zombie2').style.left = (Math.floor(Math.random()*(width-100))) + 'px';
+                document.getElementById('zombie2').style.top = (Math.floor(Math.random()*(height-100))) + 'px';
+            }
+            function remove() {
+                document.getElementById('zombie').src = 'zombie.png';
+                document.getElementById('zombie2').src = 'zombie.png';
+            }
+            function zombiepop() {
+                let audio = new Audio('bloodsplatter.mp3');
+                document.getElementById('zombie').src = 'zombie.gif';
+                audio.play();
+                score();
+            }
+            function zombiepop2() {
+                let audio = new Audio('bloodsplatter.mp3');
+                document.getElementById('zombie2').src = 'zombie.gif';
+                audio.play();
+                score();
+            }
+            function reset() {
+                counter = 0;
+                document.getElementById('score').innerHTML = counter;
+                document.getElementById('zombie').style.left = width/2 + 'px';
+                document.getElementById('zombie').style.top = height/2 + 'px';
+                document.getElementById('zombie2').style.left = width/2 + 'px';
+                document.getElementById('zombie2').style.top = height/2 + 'px';
+            }
+            function windowreset() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+            }
+            document.getElementById('zombie').style.left = width/2 + 'px';
+            document.getElementById('zombie').style.top = height/2 + 'px';
+            document.getElementById('zombie2').style.left = width/2 + 'px';
+            document.getElementById('zombie2').style.top = height/2 + 'px';
+            setInterval(zombiespawn, 2000);
+            document.getElementById('zombie').onclick = zombiepop;
+            document.getElementById('zombie2').onclick = zombiepop2;
+            setInterval(remove, 2000);
+            setInterval(windowreset, 0);
+        </script>
+    </body>
+</html>
